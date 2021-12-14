@@ -10,7 +10,7 @@ La libreria impiegata di log4J 2.6.1.
 Nel progetto è presente il file pom.xml per la compilazione tramite Maven.
 Ho creato un DockerFile che contiene al suo interno tutto il necessario per avviare l'immagine senza alcuna configurazione e senza installare la JDK necessaria per dimostrare l'exploit.
 
-## Usage
+## Utilizzo
 Prima di tutto sarà necessario avviare un server mysql e impostare il relativo indirizzo, username e password nel file "application.properties", all'interno della cartella "resources". è possibile utilizzare un container docker allo scopo.
 
 Successivamente sarà necessario avviare il server LDAP che servirà la classe Java con il Payload.
