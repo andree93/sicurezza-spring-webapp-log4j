@@ -72,7 +72,7 @@ Il server LDAP è stato creato da feihong-cs.
 
 La libreria Log4J è di Apache Software foundation https://logging.apache.org/log4j/2.x/index.html
 
-Integrazione Log4J nella webApp: Andrea Carro
+Integrazione Log4J nella webApp e containerizzazione: Andrea Carro
 
 
 
