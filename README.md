@@ -69,7 +69,7 @@ ls /tmp/hacked
 La webApp impiegata in questo progetto è stata creata dall'autore GNico (github: https://github.com/GNico/spring-eshop )
 
 
-Il server LDAP è stato creato da feihong-cs.
+Il server JNDI è stato creato da feihong-cs.
 
 
 La libreria Log4J è di Apache Software foundation https://logging.apache.org/log4j/2.x/index.html
