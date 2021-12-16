@@ -63,7 +63,7 @@ Ovviamente è possibile sfruttare la vulnerabilità eseguendo la webApp senza do
 L'immagine docker, ad esempio, è stata creata a partire dalla JDK-8u181, che ha l'opzione abilitata di default.
 
 ```bash
-com.sun.jndi.ldap.object.trustURLCodebase
+com.sun.jndi.ldap.object.trustURLCodebase=true
 ```
 
 Tuttavia, avere una versione più recente della JDK/JRE non è sufficiente per mettersi completamente al riparo dalla vulnerabilità.
