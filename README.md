@@ -4,7 +4,7 @@ Lo scopo di questo progetto è quello di mostrare la vulnerabilità Log4shell CV
 
 In questo progetto è stata scelta una webapp realizzata con il popolare web framework Java MVC, opportunamente modificata per lo scopo.
 
-La parte da me modificata si trova nel controller "HomeController", file "HomeController.java".
+La parte da me modificata si trova nel controller "HomeController", file "src\main\java\com\nico\store\store\controller\HomeController.java".
 Nel controller è stata istanziata la classe Logger, ed è stata aggiunta (mediante annotazione) l'istruzione per ricavare l'header della richiesta "User-Agent", e all'interno del controller, si è usata l'istanza del Logger precedentemente istanziata  per loggare la User-Agent. Ne consegue quindi, che se un client invia una  richiesta al server con l'header opportunamente modificato (nel nostro caso la user agent, ma avrei potuto sceglierne un altro volendo), contenente un'istruzione per il download di una classe Java da un server JNDI, verrà eseguito il codice contenuto nella classe.
 
 La libreria impiegata di log4J 2.6.1.
