@@ -49,13 +49,33 @@ git clone https://github.com/andree93/sicurezza-spring-webapp-log4j.git
 
 Posizionarsi nella directory principale della webApp e creare l'immagine docker con il Dockerfile presente su questo repo:
 ```bash
-docker build .
+docker build --tag nomeContainer .
 ```
+
+Crea il volume docker con il file di configurazione:
+```bash
+docker volume create nomeVolume
+```
+
+e dopo andare nella directory e copiare il file di configurazione "application.properties" (potrebbero essere necessari i privilegi di root)
+```bash
+cp application.properties /var/lib/docker/volumes/_data
+```
+Oppure è possibile montare direttamente la cartella che contiene il file di configurazione, senza creare il container:
+
+```bash
+docker run -it --name nomeContainer -p 8080:8080 --network nomeSottoRete -v /percorso/al/file/config/:/config nomeImmagineDocker
+```
+
+
 Avviare il container:
 
 ```bash
-docker run --name nomeApplicazione -p 8080:8080 --network nomeRete
+docker run --name nomeContainer -p 8080:8080 --network nomeRete -v nomeVolumeDocker:/config nomeImmagineDocker
 ```
+
+
+
 Dopo aver inviato la request al server della webApp, come descritto sopra (ad esempio con curl), sarà possibile notare dai log del server LDAP che è stata "servita" la classe Java al server della nostra WebApp, con il payload al suo interno.
 A seconda del comando eseguito, è possibile vedere il risultato. Ad esempio, se il payload provoca la creazione di file, è possibile entrare nel container e verificarlo. Ad esempio:
 
