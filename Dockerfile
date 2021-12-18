@@ -6,4 +6,4 @@ RUN mvn -f /usr/src/app/pom.xml clean package -DskipTests
 FROM openjdk:8u181-jdk-alpine
 WORKDIR /
 COPY --from=build /usr/src/app/target/*.jar /app.jar
-CMD java -jar app.jar
+CMD ["java", "-jar", "app.jar", "--spring.config.location=file:/config/application.properties"]
