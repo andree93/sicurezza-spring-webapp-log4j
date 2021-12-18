@@ -59,7 +59,7 @@ docker volume create nomeVolume
 
 e dopo andare nella directory e copiare il file di configurazione "application.properties" (potrebbero essere necessari i privilegi di root)
 ```bash
-cp application.properties /var/lib/docker/volumes/_data
+cp application.properties /var/lib/docker/volumes/nomeVolume/_data
 ```
 Oppure è possibile montare direttamente la cartella che contiene il file di configurazione, senza creare il container:
 
