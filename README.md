@@ -91,7 +91,7 @@ docker exec -it nomeApplicazione sh
 ls /tmp/hacked
 ```
 
-Ovviamente è possibile sfruttare la vulnerabilità eseguendo la webApp senza docker, ma è necessario che la JDK (o JRE) abbia abilitata l'opzione che consente di eseguire classi scaricate da un server remoto JNDI.
+Ovviamente è possibile sfruttare la vulnerabilità eseguendo la webApp senza docker, ma è necessario che la JDK (o JRE) abbia abilitata l'opzione che consente di eseguire classi scaricate da un server remoto LDAP tramite la API JNDI.
 L'immagine docker, ad esempio, è stata creata a partire dalla JDK-8u181, che ha l'opzione abilitata di default.
 
 ```bash
@@ -107,7 +107,7 @@ Tuttavia, avere una versione più recente della JDK/JRE non è sufficiente per m
 La webApp impiegata in questo progetto è stata creata dall'autore GNico (github: https://github.com/GNico/spring-eshop )
 
 
-Il server JNDI/LDAP è stato creato da feihong-cs.
+Il server LDAP per l'exploit della vulnerabilità è stato creato da feihong-cs. Esistono anche altri tool per il medesimo scopo.
 
 
 La libreria Log4J è di Apache Software foundation https://logging.apache.org/log4j/2.x/index.html
