@@ -57,7 +57,7 @@ Crea il volume docker con il file di configurazione:
 docker volume create nomeVolume
 ```
 
-e dopo andare nella directory dei dati del volume appena creato e copiare il file di configurazione "application.properties" (potrebbero essere necessari i privilegi di root)
+e dopo andare nella directory dei dati del volume appena creato e copiare il file di configurazione  "application.properties"  che si trova nella directory "config" (potrebbero essere necessari i privilegi di root):
 ```bash
 cp application.properties /var/lib/docker/volumes/nomeVolume/_data
 ```
@@ -68,7 +68,7 @@ Avviare il container:
 docker run --name nomeContainer -p 8080:8080 --network nomeRete -v nomeVolumeDocker:/config nomeImmagineDocker
 ```
 
-Oppure è possibile montare direttamente la cartella che contiene il file di configurazione, senza creare il container:
+Oppure è possibile montare direttamente la cartella che contiene il file di configurazione, senza creare il volume docker:
 
 ```bash
 docker run -it --name nomeContainer -p 8080:8080 --network nomeSottoRete -v /percorso/al/file/config/:/config nomeImmagineDocker
